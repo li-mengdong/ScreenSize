@@ -1,9 +1,10 @@
-package com.lmd.screensize;
+package com.lmd.screeninfolibrary;
 
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.Build;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
@@ -14,15 +15,15 @@ import android.util.Log;
  */
 
 public class ScreenUtils {
-    MainActivity mActivity;
+    AppCompatActivity mActivity;
 
     private static ScreenUtils mInstance;
 
-    public ScreenUtils(MainActivity activity) {
+    public ScreenUtils(AppCompatActivity activity) {
         this.mActivity = activity;
     }
 
-    public static ScreenUtils getInstance(MainActivity activity) {
+    public static ScreenUtils getInstance(AppCompatActivity activity) {
         ScreenUtils mInstance = new ScreenUtils(activity);
         return mInstance;
     }

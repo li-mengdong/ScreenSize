@@ -1,4 +1,4 @@
-package com.lmd.screensize;
+package com.lmd.screeninfolibrary;
 
 import android.os.Build;
 import android.util.Log;
