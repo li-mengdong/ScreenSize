@@ -16,6 +16,6 @@ allprojects {
 Add the dependency
 ```
 dependencies {
-	compile 'com.github.User:Repo:Tag'
+	compile 'com.github.li-mengdong:ScreenSize:v1.0'
 }
 ```
