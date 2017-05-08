@@ -4,11 +4,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
+import com.lmd.screeninfolibrary.PhoneInfoUtils;
+import com.lmd.screeninfolibrary.ScreenUtils;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
-
 
     @BindView(R.id.phone_brand)
     TextView phoneBrand;
@@ -33,8 +35,6 @@ public class MainActivity extends AppCompatActivity {
     private String mPhoneModel;
     private String mScreenResolution;
     private String[] DPI;
-    private String mStatusBarHeight;
-    private String mTitleBarHeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +49,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        mStatusBarHeight = ScreenUtils.getInstance(this).getStatusBarHeight();
-        mTitleBarHeight = ScreenUtils.getInstance(this).getTitleBarHeight();
+
+        String mStatusBarHeight = ScreenUtils.getInstance(this).getStatusBarHeight();
+        String mTitleBarHeight = ScreenUtils.getInstance(this).getTitleBarHeight();
         screenTitleBarHeight.setText("状态栏高度：" + mStatusBarHeight);
         screenStatusBarHeight.setText("标题栏高度：" + mTitleBarHeight);
     }
