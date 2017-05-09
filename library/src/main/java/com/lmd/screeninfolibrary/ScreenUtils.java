@@ -48,8 +48,9 @@ public class ScreenUtils {
 
     public String getScreenResolution() {
         DisplayMetrics displayMetrics = new DisplayMetrics();
-        mActivity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            mActivity.getWindowManager().getDefaultDisplay().getRealMetrics(displayMetrics);
+        }
         Log.e("screenResolution", "screenResolution: " + displayMetrics.widthPixels + "x" + displayMetrics.heightPixels);
 
         return displayMetrics.widthPixels + "x" + displayMetrics.heightPixels;
@@ -65,7 +66,7 @@ public class ScreenUtils {
 
         Log.e("statusBarHeight", "statusBarHeight: " + statusBarHeight);
 
-        return String.valueOf(statusBarHeight);
+        return String.valueOf(statusBarHeight) + "px";
     }
 
     /**
@@ -77,7 +78,7 @@ public class ScreenUtils {
 
         Log.e("titleBarHeight", "titleBarHeight: " + titleBarHeight);
 
-        return String.valueOf(titleBarHeight);
+        return String.valueOf(titleBarHeight) + "px";
     }
 
     /**
@@ -87,11 +88,13 @@ public class ScreenUtils {
         int heightPixels = mActivity.getResources().getDisplayMetrics().heightPixels;
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
-        mActivity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            mActivity.getWindowManager().getDefaultDisplay().getRealMetrics(displayMetrics);
+        }
 
         int navigationBarHeight = displayMetrics.heightPixels - heightPixels;
         Log.e("navigationBarHeight", "navigationBarHeight: " + navigationBarHeight);
 
-        return String.valueOf(navigationBarHeight);
+        return String.valueOf(navigationBarHeight) + "px";
     }
 }
