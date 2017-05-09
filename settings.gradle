@@ -1,1 +1,1 @@
-include ':screeninfolibrary'
+include ':library', ':demo'

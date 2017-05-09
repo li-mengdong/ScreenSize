@@ -1,7 +1,11 @@
 package com.lmd.demo;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.lmd.screeninfolibrary.PhoneInfoUtils;
@@ -41,6 +45,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+
+            actionBar.getHeight();
+        }
+
         initData();
         initView();
     }
@@ -51,8 +61,13 @@ public class MainActivity extends AppCompatActivity {
 
         String mStatusBarHeight = ScreenUtils.getInstance(this).getStatusBarHeight();
         String mTitleBarHeight = ScreenUtils.getInstance(this).getTitleBarHeight();
+
+        int contentTop = getWindow().findViewById(Window.ID_ANDROID_CONTENT).getTop();
+        //statusBarHeight是上面状态栏的高度
+        int titleBarHeight = contentTop - Integer.parseInt(mStatusBarHeight);
+
         screenTitleBarHeight.setText("状态栏高度：" + mStatusBarHeight);
-        screenStatusBarHeight.setText("标题栏高度：" + mTitleBarHeight);
+        screenStatusBarHeight.setText("标题栏高度：" + contentTop);
     }
 
     private void initData() {
@@ -72,4 +87,5 @@ public class MainActivity extends AppCompatActivity {
         screenXdpi.setText("xDPI：" + DPI[2]);
         screenYdpi.setText("yDPI：" + DPI[3]);
     }
+
 }
