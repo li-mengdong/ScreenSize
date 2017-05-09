@@ -4,8 +4,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Window;
-import android.view.WindowManager;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.lmd.screeninfolibrary.PhoneInfoUtils;
@@ -34,10 +34,13 @@ public class MainActivity extends AppCompatActivity {
     TextView screenTitleBarHeight;
     @BindView(R.id.screen_statusBarHeight)
     TextView screenStatusBarHeight;
+    @BindView(R.id.screen_navigationBarHeight)
+    TextView screenNavigationBarHeight;
     private String mPhoneBrand;
     private String mPhoneModel;
     private String mScreenResolution;
     private String[] DPI;
+    private String mNavigationHeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,12 +48,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-
-            actionBar.getHeight();
-        }
-
+        //getNavigationBarHeight();
         initData();
         initView();
     }
@@ -61,13 +59,12 @@ public class MainActivity extends AppCompatActivity {
 
         String mStatusBarHeight = ScreenUtils.getInstance(this).getStatusBarHeight();
         String mTitleBarHeight = ScreenUtils.getInstance(this).getTitleBarHeight();
-
-        int contentTop = getWindow().findViewById(Window.ID_ANDROID_CONTENT).getTop();
-        //statusBarHeight是上面状态栏的高度
-        int titleBarHeight = contentTop - Integer.parseInt(mStatusBarHeight);
+        String mNavigationHeight = ScreenUtils.getInstance(this).getNavigationBarHeight();
 
         screenTitleBarHeight.setText("状态栏高度：" + mStatusBarHeight);
-        screenStatusBarHeight.setText("标题栏高度：" + contentTop);
+        screenStatusBarHeight.setText("标题栏高度：" + mTitleBarHeight);
+
+        screenNavigationBarHeight.setText("导航栏高度：" + mNavigationHeight);
     }
 
     private void initData() {
@@ -75,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
         mPhoneModel = PhoneInfoUtils.getPhoneModel();
         mScreenResolution = ScreenUtils.getInstance(this).getScreenResolution();
         DPI = ScreenUtils.getInstance(this).getDpi();
-
     }
 
     private void initView() {
@@ -88,4 +84,16 @@ public class MainActivity extends AppCompatActivity {
         screenYdpi.setText("yDPI：" + DPI[3]);
     }
 
+    public void getNavigationBarHeight() {
+        int heightPixels = getResources().getDisplayMetrics().heightPixels;
+        Log.e("heightPixels", "heightPixels: " + heightPixels);
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            getWindowManager().getDefaultDisplay().getRealMetrics(displayMetrics);
+        }
+        Log.e("displayMetrics.heightPixels", "displayMetrics.heightPixels: " + displayMetrics.heightPixels);
+        int navigationBarHeight = displayMetrics.heightPixels - heightPixels;
+        Log.e("navigationBarHeight", "navigationBarHeight: "+navigationBarHeight);
+    }
 }

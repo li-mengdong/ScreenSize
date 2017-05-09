@@ -1,4 +1,4 @@
 /build/*
 /.idea/*
 /.gradle/*
-/demo/build/
+/demo/build/*
