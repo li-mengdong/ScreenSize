@@ -18,6 +18,6 @@ allprojects {
 Add the dependency
 ```
 dependencies {
-	compile 'com.github.li-mengdong:ScreenSize:v1.2.1'
+	compile 'com.github.li-mengdong:ScreenSize:v1.3'
 }
 ```
