@@ -2,8 +2,8 @@
 /.gradle/*
 /local.properties
 /.idea/*
-/build
-/gradle
+/build/*
+/gradle/*
 build/
 libs/
 src/main/res/drawable/
