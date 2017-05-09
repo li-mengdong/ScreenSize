@@ -31,23 +31,6 @@ public class ScreenUtils {
     /**
      * 获取手机屏幕密度
      */
-    /*public void getScreenSize() {
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        mActivity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-
-        float density = displayMetrics.density;
-        int densityDpi = displayMetrics.densityDpi;
-        int heightPixels = displayMetrics.heightPixels;
-        int widthPixels = displayMetrics.widthPixels;
-        float xdpi = displayMetrics.xdpi;
-        float ydpi = displayMetrics.ydpi;
-
-        Log.e("DPI", "density: " + density + "densityDpi: " + densityDpi + "heightPixels: " + heightPixels + "widthPixels: " + widthPixels + "xdpi: " + xdpi + "ydpi: " + ydpi);
-    }*/
-
-    /**
-     * 获取手机屏幕密度
-     */
     public String[] getDpi() {
         DisplayMetrics displayMetrics = mActivity.getResources().getDisplayMetrics();
 
@@ -64,13 +47,12 @@ public class ScreenUtils {
     }
 
     public String getScreenResolution() {
-        Point point = new Point();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            mActivity.getWindowManager().getDefaultDisplay().getRealSize(point);
-        }
-        Log.e("screenResolution", "screenResolution: " + point.x + "x" + point.y);
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        mActivity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
-        return point.x + "x" + point.y;
+        Log.e("screenResolution", "screenResolution: " + displayMetrics.widthPixels + "x" + displayMetrics.heightPixels);
+
+        return displayMetrics.widthPixels + "x" + displayMetrics.heightPixels;
     }
 
     /**
@@ -92,8 +74,24 @@ public class ScreenUtils {
     public String getTitleBarHeight() {
         ActionBar actionBar = mActivity.getSupportActionBar();
         int titleBarHeight = actionBar.getHeight();
+
         Log.e("titleBarHeight", "titleBarHeight: " + titleBarHeight);
 
         return String.valueOf(titleBarHeight);
+    }
+
+    /**
+     * 菜单栏高度
+     */
+    public String getNavigationBarHeight() {
+        int heightPixels = mActivity.getResources().getDisplayMetrics().heightPixels;
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        mActivity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+
+        int navigationBarHeight = displayMetrics.heightPixels - heightPixels;
+        Log.e("navigationBarHeight", "navigationBarHeight: " + navigationBarHeight);
+
+        return String.valueOf(navigationBarHeight);
     }
 }
